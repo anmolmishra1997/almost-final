@@ -42,7 +42,7 @@ arma::mat Minimum_Position_3D(NumericVector array)
 }
 
 //[[Rcpp::export]]
-arma::mat Payoff_Function(NumericVector array1, NumericVector array2,double value, double participation)
+arma::mat Payoff_Function(NumericVector array1, arma::mat array2,double value, double participation)
 {
   IntegerVector dim = array1.attr("dim"); 
   arma::cube my_array1(array1.begin(),dim[0], dim[1], dim[2], false);
@@ -56,7 +56,7 @@ arma::mat Payoff_Function(NumericVector array1, NumericVector array2,double valu
   {
     for(int i = 0; i < simulations; ++i)
     {
-      min_stock_id(i,j) = array2(min_stock_id(i,j)); 
+      min_stock_id(i,j) = array2(j, min_stock_id(i,j)); 
     }
   }
   

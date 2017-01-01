@@ -12,7 +12,7 @@
 //[[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 //[[Rcpp::export]]
-arma::mat Roll_Cost(NumericVector array, NumericVector array2)
+arma::mat Roll_Cost(NumericVector array, arma::mat array2)
 {
   IntegerVector dim = array.attr("dim"); 
   arma::cube my_array(array.begin(),dim[0], dim[1], dim[2], false);
@@ -23,7 +23,7 @@ arma::mat Roll_Cost(NumericVector array, NumericVector array2)
     {
       double term = 0;
       for(int k = 0; k <  dim[2]; ++k)
-      {term += my_array(i,j,k) * array2(k) * 1.0/365;}
+      {term += my_array(i,j,k) * array2(j,k) * 1.0/365;}
       new_mat(i,j) = term;
     }
   }
